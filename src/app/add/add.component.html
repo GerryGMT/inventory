@@ -1,0 +1,119 @@
+<mat-grid-list cols="2" rowHeight="1:1.4">
+  <mat-grid-tile>
+    <form
+      class="form"
+      #usersForm="ngForm"
+      (ngSubmit)="getUserFormData(usersForm.value)"
+    >
+      <h1>Item form:</h1>
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Item name</mat-label>
+        <input
+          matInput
+          placeholder="Pizza"
+          type="text"
+          [(ngModel)]="name"
+          name="name"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Item description</mat-label>
+        <textarea
+          matInput
+          placeholder="It makes me feel..."
+          [(ngModel)]="description"
+          name="description"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-radio-group
+        aria-label="Select an option"
+        class="radio-group"
+        [(ngModel)]="button"
+        name="button"
+      >
+        <mat-radio-button value="New" class="radio-button"
+          >New</mat-radio-button
+        >
+        <mat-radio-button value="Refurbish" class="radio-button"
+          >Refurbish</mat-radio-button
+        >
+      </mat-radio-group>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Select Category</mat-label>
+        <mat-select [(ngModel)]="comp" name="comp">
+          <mat-option *ngFor="let comp of comps" [value]="comp.viewValue">
+            {{ comp.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [(ngModel)]="date"
+          name="date"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Item image</mat-label>
+        <input
+          matInput
+          placeholder="My best pic"
+          type="text"
+          [(ngModel)]="image"
+          name="image"
+        />
+        <mat-hint>Type or paste image url</mat-hint>
+      </mat-form-field>
+
+      <section class="tags">
+        <h3>Select tags:</h3>
+        <mat-checkbox value="HP">HP</mat-checkbox>
+        <mat-checkbox>SAMSUNG</mat-checkbox>
+        <mat-checkbox>APPLE</mat-checkbox>
+        <mat-checkbox>COMPUTER</mat-checkbox>
+        <mat-checkbox>ACCESSORY</mat-checkbox>
+        <mat-checkbox>DELL</mat-checkbox>
+        <mat-checkbox>LENOVO</mat-checkbox>
+        <mat-checkbox>ACCESSORY</mat-checkbox>
+      </section>
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!name || !description || !button || !comp || !image"
+      >
+        Save
+      </button>
+    </form>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="card">
+      <h1>Item display</h1>
+      <mat-card-header>
+        <mat-card-title>{{ name }}</mat-card-title>
+        <mat-card-subtitle>{{ button }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{ image }}" alt="Item image" />
+      <mat-card-content>
+        <p>{{ description }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>{{ comp }}</button>
+        <button mat-button>{{ date }}</button>
+      </mat-card-actions>
+      <mat-card-content>
+        <p>{{ tags }}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
